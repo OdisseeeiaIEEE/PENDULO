@@ -1,0 +1,1 @@
+![gif](pendulo_CAD_gif.gif)
