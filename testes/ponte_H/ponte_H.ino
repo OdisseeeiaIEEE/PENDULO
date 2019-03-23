@@ -1,78 +1,75 @@
-const int set1 = 2;
+/*
+  Code de teste feito para ser usado com aquela ponte H vermelha com dissipador
+  23/03/2019
+*/
+
+//pinagem
+const int set1 = 4;
 const int set2 = 3;
 
-void setup()
+const int POT = A0;
+
+//variáveis globais
+int pot = 0;
+int pot_max = 0;
+
+void setup ()
 {
   Serial.begin(115200);
-
+  
   pinMode(set1, OUTPUT);
   pinMode(set2, OUTPUT);
 }
 
-void loop()
+void loop ()
 {
-  digitalWrite(set1, HIGH);
-  digitalWrite(set2, LOW);
+  pot = analogRead(POT);
 
-  delay(1000);
-
-  digitalWrite(set1, LOW);
-  digitalWrite(set2, HIGH);
-
-  delay(1000);
+  if(pot > pot_max) // correção do valor máx do potenciometro
+    pot_max = pot;
   
-  /*
-  Serial.println("set1");
-  for(int i = 0; i < 255; i += 50)
+  if (pot > 600)
   {
-    pwm(i, true);
-    delay(200); 
+    //digitalWrite(set1, HIGH);
 
-    Serial.println(i);
+    //fazer controle de vel
+    int val = map(pot, 600, pot_max, 10, 255);
+    val = constrain(val, 0, 255); 
+    analogWrite(set1, val);
+    Serial.print("val: ");
+    Serial.print(val); 
+    
+    digitalWrite(set2, LOW);
+  
+    Serial.print(" _|_ set1");
   }
-
-  delay(2000);
-
-  Serial.println("desligar");
-  deligar();
-  delay(1000);
-
-
-  Serial.println("set2");
-  for(int i = 0; i < 255; i += 50)
-  {
-    pwm(i, false);
-    delay(200);
-
-    Serial.println(i);
-  }
-
-  delay(2000);
-
-  Serial.println("desligar");
-  deligar();
-  delay(1000);
-  */
-}
-
-void pwm(int pwm, boolean sentido)
-{
-  if(sentido)
-  {
-    analogWrite(set1, pwm);
-    digitalWrite(set2, LOW); 
-  }
-  else if(!sentido)
+  else if (pot < 300)
   {
     digitalWrite(set1, LOW);
-    //analogWrite(set2, pwm);
-    digitalWrite(set2, HIGH);
+
+    //fazer controle de vel
+    int val = map(pot, 0, 300, 255, 10);
+    val = constrain(val, 0, 255);
+    analogWrite(set2, val);
+
+    Serial.print("val: "); 
+    Serial.print(val); 
+    Serial.print(" _|_ set2");
   }
+  else
+  {
+    digitalWrite(set1, LOW);
+    digitalWrite(set2, LOW);
+
+    Serial.print("desligado");
+  }
+
+  print_dev();
 }
 
-
-void deligar()
+void print_dev()
 {
-  digitalWrite(set1, LOW);
-  digitalWrite(set2, LOW);
+  Serial.print(" _|_ pot: ");
+  Serial.println(pot);
 }
+
