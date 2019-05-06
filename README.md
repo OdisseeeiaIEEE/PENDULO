@@ -11,15 +11,16 @@ O sistema de controle do pêndulo é dado por:
 <img src="image_and_video/sistema.jpeg" width="800">
 
 Onde:
-|Símbolo | Significado |
-| -- | --|
-|r | Perturbação do sistema. um degrau, por exemplo |
-|csi | Integral do Erro |
-|K | Ganho de realimentação (depende da alocação de polos)|
-|KI  | Ganho de controle |
-|u   | Sinal de controle |
-|x'  | Planta
-|y   | saída |
+
+| Símbolo | Significado |
+| -- | -- |
+| r | Perturbação do sistema. um degrau, por exemplo |
+| csi | Integral do Erro |
+| K | Ganho de realimentação (depende da alocação de polos) |
+| KI  | Ganho de controle |
+| u   | Sinal de controle |
+| x'  | Planta |
+| y   | saída |
 
   Do módulo 2. Sabemos que Para ângulos pequenos (entre -30º e 30º) o sin(teta) é igual a teta. Portanto as equações matemáticas podem ser dadas por:
 
